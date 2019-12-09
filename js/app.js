@@ -16,12 +16,10 @@ let currentRoundScore = 0;
 let activePlayer = 0;
 
 // Grab the current & rounded score and set them to 0, ZERO
-let roundedScore0 = document.getElementById('score-0');
-let roundedScore1 = document.getElementById('score-1');
+document.getElementById('score-0').textContent = 0;
+document.getElementById('score-1').textContent = 0;
 let currentScore0 = document.getElementById('current-0');
 let currentScore1 = document.getElementById('current-1');
-roundedScore0.textContent = 0;
-roundedScore1.textContent = 0;
 currentScore0.textContent = 0;
 currentScore1.textContent = 0;
 
@@ -29,6 +27,26 @@ currentScore1.textContent = 0;
 // document.querySelector('.dicePhoto').style.display = 'none';
 let diceDOM = document.querySelector('.dicePhoto');
 diceDOM.style.display = 'none';
+
+// Go to next player function
+const nextPlayer = () => {
+	// 1st, Switch to Next player. Meaning, if dice === 1, it'll run the below operation.
+
+
+		activePlayer === 0 ? (activePlayer = 1) :
+		(activePlayer = 0);
+
+	// 2nd, Rounding the current score to zero again and...
+	currentRoundScore = 0;
+
+	// ...and displaying it to the interface.
+	currentScore0.textContent = currentRoundScore;
+	currentScore1.textContent = currentRoundScore;
+
+	document.querySelector('.player-0-panel').classList.toggle('active');
+	document.querySelector('.player-1-panel').classList.toggle('active');
+	diceDOM.style.display = 'none';
+};
 
 // EVENT of Roll Dice Button
 document.querySelector('.btn-roll').addEventListener('click', function () {
@@ -46,25 +64,34 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 		currentRoundScore += dice;
 		document.querySelector('#current-' + activePlayer).textContent = currentRoundScore;
 	} else {
-		// 1st, Switch to Next player. Meaning, if dice === 1, it'll run the below operation.
-
-
-			activePlayer === 0 ? (activePlayer = 1) :
-			(activePlayer = 0);
-
-		// 2nd, Rounding the current score to zero again and...
-		currentRoundScore = 0;
-
-		// ...and displaying it to the interface.
-		currentScore0.textContent = currentRoundScore;
-		currentScore1.textContent = currentRoundScore;
-
-		document.querySelector('.player-0-panel').classList.toggle('active');
-		document.querySelector('.player-1-panel').classList.toggle('active');
-		// diceDOM.style.display = 'none';
+		// Switch to next player
+		nextPlayer();
 	}
 });
 
+// EVENT of Hold button
+document.querySelector('.btn-hold').addEventListener('click', function (params) {
+	// Add CurrentRound score to Global score
+	scores[activePlayer] += currentRoundScore;
 
+	// Update the UI
+	document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer];
 
-
+	// Check if player won the game
+	if (scores[activePlayer] >= 20) {
+		document.getElementById(`name-${activePlayer}`).textContent = 'Winner!';
+		// Won't display any dice photo anymore
+		diceDOM.style.display = 'none';
+		// Rounding the current score to zero again and...
+		currentRoundScore = 0;
+		// ...and displaying it to the interface.
+		currentScore0.textContent = currentRoundScore;
+		currentScore1.textContent = currentRoundScore;
+		// Changing UI of winning & active player
+		document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
+		document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+	} else {
+		// Switch to next player
+		nextPlayer();
+	}
+});

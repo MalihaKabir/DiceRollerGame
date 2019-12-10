@@ -1,5 +1,7 @@
 # DiceRollerGame
 
+Dice Roller is a JavaScript gaming app.
+
 GAME RULES:
 
 - The game has 2 players, playing in rounds.

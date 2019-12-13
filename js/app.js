@@ -30,10 +30,9 @@ const init = () => {
 	currentScore0.textContent = 0;
 	currentScore1.textContent = 0;
 	// Make the photo DOM invisible in display
-	// document.querySelector('.dicePhoto').style.display = 'none';
 	diceDOM = document.querySelector('.dicePhoto');
 	diceDOM.style.display = 'none';
-	// Change name back to player
+	// Change name back to player after clicking 'new game' button.
 	document.getElementById(`name-0`).textContent = 'Player 1';
 	document.getElementById(`name-1`).textContent = 'Player 2';
 	document.querySelector(`.player-0-panel`).classList.remove('winner');
@@ -62,13 +61,15 @@ const nextPlayer = () => {
 	currentScore0.textContent = currentRoundScore;
 	currentScore1.textContent = currentRoundScore;
 
+	// Then toggle the 'active' class to show/hide active status.
 	document.querySelector('.player-0-panel').classList.toggle('active');
 	document.querySelector('.player-1-panel').classList.toggle('active');
+
 	diceDOM.style.display = 'none';
 };
 
 // EVENT of Roll Dice Button
-document.querySelector('.btn-roll').addEventListener('click', function () {
+document.querySelector('.btn-roll').addEventListener('click', () => {
 	// If a user clicks on roll-dice button, dice-btn will only work if the game is playing, meaning if gamePlaying is true. And here's no "else", because we don't want anything to happen if the game is not playing/active. So,
 	if (gamePlaying) {
 		// 1. Need a random number when someone click the button.
@@ -78,7 +79,7 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 		diceDOM.style.display = 'block';
 		diceDOM.src = `img/dice-${dice}.png`;
 
-		// 3. Update the current score IF the rolled number is NOT 1
+		// 3. Update the current score IF the rolled number is NOT 1 or greater than 1.
 		if (dice !== 1) {
 			// Add the number to current score. Whenever user/player roll the dice,
 			// 1st, update the current round score. And then display the current round score in the user interface.
@@ -92,8 +93,9 @@ document.querySelector('.btn-roll').addEventListener('click', function () {
 });
 
 // EVENT of Hold button
-document.querySelector('.btn-hold').addEventListener('click', function () {
-	// If the game is playing, do all these stuffs here. Meaning, hold-btn will work too. And here's NO "else" either, because of the same reason.
+document.querySelector('.btn-hold').addEventListener('click', () => {
+	// If the game is playing, do all these stuffs here. Meaning, hold-btn will work too.
+	// And here's NO "else" either, because of the same reason.
 	if (gamePlaying) {
 		// First define what we want to happen.
 		// So, first add CurrentRound score to Global score.
@@ -110,7 +112,7 @@ document.querySelector('.btn-hold').addEventListener('click', function () {
 			diceDOM.style.display = 'none';
 			// Rounding the current score to zero again and...
 			currentRoundScore = 0;
-			// ...and displaying it to the interface.
+			// ...and updating it to the interface.
 			currentScore0.textContent = currentRoundScore;
 			currentScore1.textContent = currentRoundScore;
 			// Changing UI of winning & active player

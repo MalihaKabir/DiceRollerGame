@@ -6,9 +6,11 @@ GAME RULES:
 
 - The game has 2 players, playing in rounds.
 - In each turn, a player rolls a dice as many times as he whishes. Each result gets added to his ROUND score.
-- BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn.
+- BUT, if the player rolls a 1, all his current ROUND score gets lost. After that, it's the next player's turn.
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLOBAL(main) score. After that, it's the next player's turn.
+- And if the player rolls 6 twice in a row, he/she will loose all of his/her GLOBAL scores too, including current scores. After that, it's the next player's turn.
 - The first player to reach 100 points on GLOBAL score wins the game.
+- User can set the winning score too.
 
 
 ### Screenshots of the app:

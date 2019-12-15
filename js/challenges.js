@@ -90,7 +90,7 @@ document.querySelector('.btn-hold').addEventListener('click', () => {
 		let winningScore;
 		// now the logical part, if the user write something as winning score,
 		if (input) {
-			// then the value of input field will be added to the 'winningScore' variable
+			// then the value of input field will be added to the 'winningScore' variable. We do this just in case if we don't have any input, we can set something else.
 			winningScore = input;
 		} else {
 			// else, if the value of input field is undefined, 0, null or "", then these are COERCED to false. And the winning score will be set by us which is 100 here.

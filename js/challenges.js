@@ -83,14 +83,21 @@ document.querySelector('.btn-hold').addEventListener('click', () => {
 		scores[activePlayer] += currentScore;
 
 		document.getElementById(`score-${activePlayer}`).textContent = scores[activePlayer];
+
+		// grab the input field, so that the user can set the his/her desired winning score.
 		let input = document.querySelector('.winning-score').value;
+		// create a variable where the winning score will be stored.
 		let winningScore;
+		// now the logical part, if the user write something as winning score,
 		if (input) {
+			// then the value of input field will be added to the 'winningScore' variable
 			winningScore = input;
 		} else {
+			// else, if the value of input field is undefined, 0, null or "", then these are COERCED to false. And the winning score will be set by us which is 100 here.
 			winningScore = 100;
 		}
 
+		// So, if active player reaches to the 'winningScore'...
 		if (scores[activePlayer] >= winningScore) {
 			document.getElementById(`name-${activePlayer}`).textContent = 'Winner!';
 			document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
